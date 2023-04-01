@@ -7,6 +7,12 @@
     <title>Home</title>
 </head>
 <body>
-    
+    <livewire:header />
+        <main class="main">
+            <div>
+                <h1 class="text-center">Lista de Animes adicionados</h1>
+            </div>
+        </main>
+    <livewire:footer />
 </body>
 </html>
