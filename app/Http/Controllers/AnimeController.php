@@ -8,30 +8,44 @@ use App\Models\Anime;
 class AnimeController extends Controller
 
 {
-    public function index(){
+    public function about(){
         $animes = Anime::all();
         return view('index', compact('animes'));
     }
 
-    public function store(Request $request){
+    public function index(){
+        $animes = Anime::all();
+        return view('animes.index', compact('animes'));
+    }
 
+    public function create(){
+        $animes = Anime::all();
+        return view('animes.create', compact('animes'));
+    }
+
+    public function store(Request $request){
+        
+        return view('animes.index', compact('animes'));
     }
 
     public function show(){
-
+        
+        return view('animes.index', compact('animes'));
     }
 
     public function edit($id){
 
+        return view('animes.edit', compact('animes'));
     }
 
     public function update(Request $request, $id){
 
+        return view('animes.index', compact('animes'));
     }
 
     public function destroy($id){
         $animes = Anime::find($id);
         $animes = delete();
-        return view('index');
+        return view('animes.index', compact('animes'));
     }
 }
