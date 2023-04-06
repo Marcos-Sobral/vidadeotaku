@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImgEPAnime extends Model
 {
+    use HasFactory;
+    protected $table = 'ImgEPAnime';
+
     protected $fillable = [
         'id',
         'Img',

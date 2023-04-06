@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListaAnime extends Model
 {
+    use HasFactory;
+    protected $table = "ListaAnime";
+    
     protected $fillable = [
         'id',
         'Name',

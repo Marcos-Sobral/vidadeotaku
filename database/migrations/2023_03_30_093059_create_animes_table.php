@@ -18,15 +18,22 @@ return new class extends Migration
             $table->string('Status');
             $table->string('Genre');
             $table->longtext('Sinopsis');
-            $table->unsignedBigInteger('ImgAnime_id');
-            $table->unsignedBigInteger('EPAnime_id');
-            $table->unsignedBigInteger('ListaAnime_id');
-            $table->foreign('ImgAnime_id')->references('id')->on('img_anime');
-            $table->foreign('EPAnime_id')->references('id')->on('ep_animes');
-            $table->foreign('ListaAnime_id')->references('id')->on('lista_animes');
+            $table->unsignedBigInteger('img_anime_id');
+            $table->unsignedBigInteger('ep_anime_id');
+            $table->unsignedBigInteger('lista_anime_id');
+            if (Schema::hasTable('img_anime')) {
+                $table->foreign('img_anime_id')->references('id')->on('img_anime')->onDelete('cascade');
+            }
+            if (Schema::hasTable('ep_animes')) {
+                $table->foreign('ep_anime_id')->references('id')->on('ep_animes')->onDelete('cascade');
+            }
+            if (Schema::hasTable('lista_animes')) {
+                $table->foreign('lista_anime_id')->references('id')->on('lista_animes')->onDelete('cascade');
+            }
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

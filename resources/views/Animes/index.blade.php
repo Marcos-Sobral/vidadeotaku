@@ -8,10 +8,45 @@
 </head>
 <body>
     <livewire:header />
-        <main class="main">
+    <main class="main">
             <div>
                 <h1 class="text-center">Lista de Animes adicionados</h1>
             </div>
-        </main>
+            <div>
+            <a href="{{URL::route('animes.create')}}">
+                <button class="button button:hover mt-2" type="button">Criar animes</button>
+            </a>
+            </div>
+            <table class="table-auto mt-2">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach($animes as $anime)
+                <tr>
+                    <td>{{$anime->Name}}</td>
+                    <td>
+                        <div class="flex flex-row justify-center">
+                            <div>
+                                <a href="{{URL::route('animes.edit',[$anime->id])}}">
+                                    <button class="button button:hover mt-2" type="button">Detalhes</button>
+                                </a>
+                            </div>
+                            <div>
+                                <form action="{{ route('animes.destroy', [$anime->id]) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="button button:hover mt-2">APAGAR</button>                                     
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

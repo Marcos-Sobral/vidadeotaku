@@ -25,11 +25,10 @@ Route::get('/welcome', function () {
 //Biblioteca de animes
 Route::get('/animes', [AnimeController::class, 'index'])->name('animes.index');
 Route::get('/animes/create', [AnimeController::class, 'create'])->name('animes.create');
-Route::post('/animes', [AnimeController::class, 'store'])->name('animes.store');
-Route::get('/animes/{id}', [AnimeController::class, 'show'])->name('animes.show');
+Route::post('/animes/create', [AnimeController::class, 'store'])->name('animes.store');
 Route::get('/animes/{id}/edit', [AnimeController::class, 'edit'])->name('animes.edit');
 Route::put('/animes/{id}', [AnimeController::class, 'update'])->name('animes.update');
-Route::delete('/animes/{id}', [AnimeController::class, 'destroy'])->name('animes.destroy');
+Route::delete('/animes/deletar/{id}', [AnimeController::class, 'destroy'])->name('animes.destroy');
 
 // Lista de animes
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');

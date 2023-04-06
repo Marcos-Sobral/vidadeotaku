@@ -11,17 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ep_animes', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('Name');
-            $table->string('Link');
-            $table->string('Status');
-            $table->unsignedBigInteger('Anime_id');
-            $table->unsignedBigInteger('ImgEPAnime_id');
-            $table->foreign('Anime_id')->references('id')->on('animes');
-            $table->foreign('ImgEPAnime_id')->references('id')->on('img_ep_animes');
+        Schema::create('img_ep_animes', function (Blueprint $table) {
+            $table->id();
+            $table->string('path');
             $table->timestamps();
         });
+        
+        Schema::create('ep_animes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('link');
+            $table->string('status');
+            $table->unsignedBigInteger('anime_id');
+            $table->unsignedBigInteger('img_ep_anime_id');
+            $table->foreign('anime_id')->references('id')->on('animes');
+            $table->foreign('img_ep_anime_id')->references('id')->on('img_ep_animes');
+            $table->timestamps();
+        });
+            
     }
 
     /**

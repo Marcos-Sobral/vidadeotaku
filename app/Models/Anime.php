@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Anime extends Model
 {
+    use HasFactory;
+    protected $table = 'animes';
+
     protected $fillable = [
         'id',
         'Name',
@@ -14,29 +17,26 @@ class Anime extends Model
         'Status',
         'Genre',
         'Sinopsis',
-        'ImgAnime',
-        'ImgAnime_id',
-        'EPAnime_id',
-        'ListaAnime_id',
+        'img_anime_id',
+        'lista_anime_id',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     // Relacionamento entre tabelas
     public function ImgAnime()
     {
-        return $this->hasOne(ImgAnime::class, 'ImgAnime_id');
+        return $this->hasOne(ImgAnime::class, 'img_anime_id');
     }
 
     public function EpAnime()
     {
-        return $this->hasMany(EpAnime::class, 'EPAnime_id');
+        return $this->hasMany(EpAnime::class, 'Anime_id');
     }
 
     public function ListaAnime()
     {
-        return $this->hasMany(ListaAnime::class, 'ListaAnime_id');
+        return $this->hasMany(ListaAnime::class, 'lista_anime_id');
     }
 
 }
