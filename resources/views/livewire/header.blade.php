@@ -89,6 +89,9 @@
       }
       
       @media (max-width: 600px) {
+        nav{
+          padding: 7% 5%;
+        }
         input[type="checkbox"] + label {
           display: block;
         }
@@ -97,7 +100,7 @@
           display: flex;
           flex-direction: column;
           position: absolute;
-          top: 70px;
+          top: 6.5rem;
           left: 0;
           width: 100%;
           background-color: #111827;
@@ -124,13 +127,13 @@
 <body>
 <body>
   <nav>
-    <img src="{{env('APP_URL')}}/assets/img/1.png" class="w-16 rounded-full">
+    <img src="https://cdn.discordapp.com/attachments/809468459448664126/1058427760231596082/Jahy_sama_1.png" class="w-16 rounded-full">
     <input type="checkbox" id="nav-toggle">
     <label for="nav-toggle" class="toggle-nav"></label>
     <ul>
-      <li><a href="">Inicio</a></li>
-      <li><a href="">Animes</a></li>
-      <li><a href="">Minha Lista</a></li>
+      <li><a href="{{URL::route('animes.about')}}">Inicio</a></li>
+      <li><a href="{{URL::route('animes.index')}}">Animes</a></li>
+      <li><a href="{{URL::route('listas.index')}}">Minha Lista</a></li>
       <li><a href="">Sobre</a></li>
     </ul>
   </nav>
