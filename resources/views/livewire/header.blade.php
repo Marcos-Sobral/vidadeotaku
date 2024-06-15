@@ -4,137 +4,96 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/reset.css'); }} " media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css'); }} " media="screen" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/7d7b31a9bc.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/normalize.css'); }} " media="screen" />
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css'); }} " media="screen" />
+    
     <style>
-      nav{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-direction: row;
-        background-color: #111827;
-        color: white;
-        padding:2% 5%;
-      }
-      
-      .toggle-nav {
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-        color: white;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-      }
-      
-      .close {
-        display: none;
-      }
-      
-      ul{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 3em;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      nav li {
-        padding: 10px;
-        border-bottom: 1px solid #fff;
-        transition: background-color 0.2s ease-in-out;
-      }
-      
-      nav li:hover{
-        background-color: #5B6247;
-        border-radius: 50%;
-        transition: color 0.2s ease-in-out;
-      }
-      
-      a{
-        color: white;
-        text-decoration: none;
-      }
-      
-      input[type="checkbox"] {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-      
-      input[type="checkbox"] + label {
-        display: none;
-        cursor: pointer;
-        font-size: 24px;
-        color: white;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-      }
-      
-      input[type="checkbox"] + label:before {
-        content: "\f0c9";
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-        font-size: 24px;
-      }
-      
-      input[type="checkbox"]:checked + label:before {
-        content: "\f00d";
-      }
-      
-      @media (max-width: 600px) {
-        nav{
-          padding: 7% 5%;
+          nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #111827;
+            padding: 2% 5%;
+          }
+
+          .nav-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 2em;
+            padding-inline: revert;
+            text-decoration: none;
+          }
+
+          .nav-list a {
+            color: #fff;
+            padding: 1em;
+            display: block;
+            width: 100%;
+            text-decoration: none; /* Removendo sublinhado padrão dos links */
+            transition: color 0.3s; /* Adicionando transição de cor */
         }
-        input[type="checkbox"] + label {
-          display: block;
+
+        .nav-list a:hover {
+            color: #8000ff; /* Mudando a cor no hover */
         }
-        
-        input[type="checkbox"]:checked ~ ul {
-          display: flex;
-          flex-direction: column;
-          position: absolute;
-          top: 6.5rem;
-          left: 0;
-          width: 100%;
-          background-color: #111827;
-          padding: 10px;
+
+          /* Adicionado para o menu de sanduíche */
+          #nav-toggle {
+            display: none;
+          }
+
+          .toggle-nav {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #fff;
+          }
+
+    /* Alteração no seletor abaixo */
+    @media screen and (max-width: 768px) {
+        .nav-list {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #111827;
+            text-align: center;
         }
-        
-        input[type="checkbox"]:checked ~ ul li {
-          display: block;
-          padding: 10px;
-          border-bottom: 1px solid #fff;
+
+        .nav-list a {
+            color: #fff;
+            padding: 1em;
+            display: block;
+            width: 100%;
         }
-        
-        input[type="checkbox"]:checked ~ ul li:hover{
-          background-color: #5B6247;
-          border-radius: 50%;
+
+        .toggle-nav {
+            display: block;
         }
-        
-        input[type="checkbox"]:not(:checked) ~ ul {
-          display: none;
+
+        /* Correção aqui */
+        #nav-toggle:checked + label + .nav-list {
+            display: flex;
         }
-      }
+    }
 </style>
 </head>
-<body>
 <body>
   <nav>
     <img src="https://cdn.discordapp.com/attachments/809468459448664126/1058427760231596082/Jahy_sama_1.png" class="w-16 rounded-full">
     <input type="checkbox" id="nav-toggle">
-    <label for="nav-toggle" class="toggle-nav"></label>
-    <ul>
+    <label for="nav-toggle" class="toggle-nav">&#9776;</label>
+    <ul class="nav-list">
       <li><a href="{{URL::route('animes.about')}}">Inicio</a></li>
       <li><a href="{{URL::route('animes.index')}}">Animes</a></li>
       <li><a href="{{URL::route('listas.index')}}">Minha Lista</a></li>
-      <li><a href="">Sobre</a></li>
+      <li><a href="{{URL::route('listas.index')}}">Sobre</a></li>
     </ul>
   </nav>
 </body>
