@@ -1,37 +1,3 @@
-body{
-    background-color: #F3F3F3;
-}
-
-.main{
-    padding: 4%;
-    margin: 2% 3%;
-}
-
-.container{ 
-    background-color: #111827;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.07);
-}
-
-.grid-video{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2em;
-    justify-items: center;
-    padding: 8%;
-}
-
-.grid-container-info-main{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2em;
-    justify-items: center;
-    padding: 2%;
-}
-.img-ilustration{
-    width: 100%;
-    height: 200px;
-}
 
 /*Button*/
 
@@ -42,7 +8,7 @@ body{
     border-radius: 50px;
     padding: 6px 15px;
     text-decoration: none;
-    color: #38BDF8;
+    color: #111827;
     background: #fff;
     transition: all 0.5s;
     cursor: pointer;
@@ -53,19 +19,4 @@ body{
     background: #111827;
     color: #fff;
     font-size: 100%;
-}
-
-@media (max-width: 1030px) {
-    .grid-video{
-        grid-template-columns: repeat(1, 1fr);
-        padding: 8%;
-    }
-    .main{
-        padding: 0;
-        margin: 5% 10%;
-    }
-    .grid-container-info-main{
-        grid-template-columns: repeat(2, 1fr);
-        padding: 2%;
-    }
 }

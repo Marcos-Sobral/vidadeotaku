@@ -32,8 +32,8 @@ Route::delete('/animes/deletar/{id}', [AnimeController::class, 'destroy'])->name
 
 // Lista de animes
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');
-Route::get('/listas/criar', [ListaController::class, 'store'])->name('listas.create');
-Route::post('/listas', [ListaController::class, 'index'])->name('listas.store');
+Route::get('/listas/criar', [ListaController::class, 'create'])->name('listas.create');
+Route::post('/listas', [ListaController::class, 'store'])->name('listas.store');
 Route::get('/listas/{id}', [ListaController::class, 'show'])->name('listas.show');
 Route::get('/listas/{id}/edit', [ListaController::class, 'edit'])->name('listas.edit');
 Route::put('/listas/{id}', [ListaController::class, 'update'])->name('listas.update');

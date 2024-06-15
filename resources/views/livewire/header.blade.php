@@ -1,100 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/reset.css'); }} " media="screen" />
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css'); }} " media="screen" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/7d7b31a9bc.js" crossorigin="anonymous"></script>
-    
-    <style>
-          nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #111827;
-            padding: 2% 5%;
-          }
+<header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between align-items-center mx-5 my-3">
+          
+          <a class="navbar-brand d-flex align-items-center text-white" href="index.html">
+            <img src="{{ URL::asset('assets/img/logo/1.png') }}" alt="Logo" width="50" height="50" class="d-inline-block align-text-top rounded-circle me-2">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-          .nav-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 2em;
-            padding-inline: revert;
-            text-decoration: none;
-          }
-
-          .nav-list a {
-            color: #fff;
-            padding: 1em;
-            display: block;
-            width: 100%;
-            text-decoration: none; /* Removendo sublinhado padrão dos links */
-            transition: color 0.3s; /* Adicionando transição de cor */
-        }
-
-        .nav-list a:hover {
-            color: #8000ff; /* Mudando a cor no hover */
-        }
-
-          /* Adicionado para o menu de sanduíche */
-          #nav-toggle {
-            display: none;
-          }
-
-          .toggle-nav {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5em;
-            color: #fff;
-          }
-
-    /* Alteração no seletor abaixo */
-    @media screen and (max-width: 768px) {
-        .nav-list {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            background-color: #111827;
-            text-align: center;
-        }
-
-        .nav-list a {
-            color: #fff;
-            padding: 1em;
-            display: block;
-            width: 100%;
-        }
-
-        .toggle-nav {
-            display: block;
-        }
-
-        /* Correção aqui */
-        #nav-toggle:checked + label + .nav-list {
-            display: flex;
-        }
-    }
-</style>
-</head>
-<body>
-  <nav>
-    <img src="https://cdn.discordapp.com/attachments/809468459448664126/1058427760231596082/Jahy_sama_1.png" class="w-16 rounded-full">
-    <input type="checkbox" id="nav-toggle">
-    <label for="nav-toggle" class="toggle-nav">&#9776;</label>
-    <ul class="nav-list">
-      <li><a href="{{URL::route('animes.about')}}">Inicio</a></li>
-      <li><a href="{{URL::route('animes.index')}}">Animes</a></li>
-      <li><a href="{{URL::route('listas.index')}}">Minha Lista</a></li>
-      <li><a href="{{URL::route('listas.index')}}">Sobre</a></li>
-    </ul>
-  </nav>
-</body>
-</html>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{{ URL::route('animes.about') }}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{{ URL::route('animes.index') }}">Acervo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{{ URL::route('listas.index') }}">Minhas Listas</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Gerenciamento
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item fw-bold" href="{{ URL::route('listas.create'); }}">Criar uma lista</a></li>
+                      <li><a class="dropdown-item fw-bold" href="{{ URL::route('animes.create'); }}">Adicionar item na lista</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+      </nav>
+  </header>

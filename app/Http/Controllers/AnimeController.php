@@ -19,8 +19,8 @@ class AnimeController extends Controller
     }
 
     public function create(){
-        $animes = Anime::all();
-        return view('animes.create', compact('animes'));
+      
+        return view('animes.create');
     }
 
     public function store(Request $request){

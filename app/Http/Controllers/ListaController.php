@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use App\Models\ListaAnime;
 use Illuminate\Http\Request;
 
 class ListaController extends Controller
@@ -11,15 +13,13 @@ class ListaController extends Controller
      */
     public function index()
     {
-        //
+        return view("listas.index");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view("listas.create");
     }
 
     /**
