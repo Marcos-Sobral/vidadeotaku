@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('status_itens', function (Blueprint $table) {
             $table->id("id_status_item");
-            $table->string("nome_status_item")->nullable();
+            $table->string("tipo_status_item")->nullable();
             $table->string("icon_status_item")->nullable();
             $table->timestamps();
         });
