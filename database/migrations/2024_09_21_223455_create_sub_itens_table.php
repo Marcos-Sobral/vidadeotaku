@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_itens', function (Blueprint $table) {
-            $table->id('id_sub_item');            $table->string("nome_item");
+            $table->id('id_sub_item');
             $table->string("titulo_sub_item")->nullable();
             $table->string("arquivo_sub_item")->nullable();
             $table->string("link_sub_item")->nullable();
