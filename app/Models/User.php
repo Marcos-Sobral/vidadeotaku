@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'ListaAnime_id',
+        'users_id_perfil',
+        'is_admin'
     ];
 
     /**
@@ -43,8 +44,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function ListaAnime()
-    {
-        return $this->hasMany(ListaAnime::class, 'lista_animes');
+    public function Perfis(){
+        return $this->belongsTo(Perfil::class, 'users_id_perfil', 'id');
+        //Usuario pode ter apenas um perfil
+    }
+
+    public function Lista(){
+        return $this->hasMany(Lista::class, "lista_id_tipo", "id_lista");
+        //usuario pode ter varias listas
     }
 }
