@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignId('users_id_perfil')->nullable()->constrained('perfis','id_perfil')->onDelete('cascade');
+            $table->boolean('is_admin')->default(false);
         });
     }
 
@@ -27,6 +29,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['users_id_perfil']);
+        });
         Schema::dropIfExists('users');
     }
 };
