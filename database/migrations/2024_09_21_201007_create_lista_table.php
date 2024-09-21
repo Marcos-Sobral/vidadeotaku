@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string("descricao_lista")->nullable();;
             $table->string("img_lista")->nullable();
             $table->boolean("is_public")->default(false)->nullable();
-            $table->timestamps();
             $table->foreignId('lista_id_user')->nullable()->constrained('users','id')->onDelete('cascade');
             $table->foreignId('lista_id_status')->nullable()->constrained('status_listas','id_status_lista')->onDelete('cascade');
             $table->foreignId('lista_id_tipo')->nullable()->constrained('tipo_listas','id_tipo_lista')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
