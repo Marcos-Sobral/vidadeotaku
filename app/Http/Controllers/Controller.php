@@ -13,4 +13,9 @@ class Controller extends BaseController
     public function index(){
         return view('index');
     }
+
+    public function welcome(){
+        return view('welcome');
+    }
+
 }
