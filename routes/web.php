@@ -21,7 +21,7 @@ Route::get('/welcome', function () {
 });
 
 //ADMIN
-Route::middleware("auth",'admin')->prefix('/admin')->group(function(){
+Route::middleware("auth",'profile')->prefix('/admin')->group(function(){
    
     //Lista
     Route::prefix('/lista')->group(function() {
@@ -120,7 +120,7 @@ Route::middleware("auth",'admin')->prefix('/admin')->group(function(){
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'check.profile', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
