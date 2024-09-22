@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lista;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ListaController extends Controller
@@ -12,7 +14,8 @@ class ListaController extends Controller
      */
     public function index()
     {
-        //
+        $listas = Lista::all();
+        return view('pages.listas.index', compact('listas'));
     }
 
     /**
@@ -20,7 +23,8 @@ class ListaController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('pages.listas.create', compact('users'));
     }
 
     /**
@@ -28,7 +32,7 @@ class ListaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
     }
 
     /**
@@ -36,7 +40,7 @@ class ListaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('pages.listas.create', compact('users'));
     }
 
     /**
@@ -44,7 +48,8 @@ class ListaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = User::all();
+        return view('pages.listas.create', compact('users'));
     }
 
     /**
@@ -52,7 +57,7 @@ class ListaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
     }
 
     /**
@@ -60,6 +65,9 @@ class ListaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $lista = Lista::findOrFail($id);
+        $lista->delete();
+
+        return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
     }
 }
