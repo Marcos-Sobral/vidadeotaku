@@ -17,7 +17,11 @@ class Item extends Model
         "descricao_item",
         "cronologia_item",
         "img_item",
-        "is_public"
+        "is_public",
+        "item_id_autor",
+        "item_id_tipo",
+        "item_id_status",
+        "item_id_user",
     ];
 
     public function User(){
