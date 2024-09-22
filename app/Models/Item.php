@@ -35,6 +35,11 @@ class Item extends Model
         //O item tem apenas um status
     }
 
+    public function Tipo_item(){
+        return $this->belongsTo(Tipo_item::class, 'item_id_tipo','id_item');
+        //O item tem apenas um status
+    }
+
     public function Genero_item(){
         return $this->belongsToMany(Genero_item::class, 'item_genero_id_item','id_item');
         //O item tem apenas um status

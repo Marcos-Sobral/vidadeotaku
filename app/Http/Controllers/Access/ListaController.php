@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
 use App\Models\Lista;
+use App\Models\Status_item;
 use App\Models\Status_lista;
+use App\Models\Tipo_item;
 use App\Models\Tipo_lista;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,8 +19,8 @@ class ListaController extends Controller
      */
     public function index()
     {
-        $listas = Lista::all();
-        return view('pages.listas.index', compact('listas'));
+        $itens = Item::all();
+        return view('pages.itens.index', compact('itens'));
     }
 
     /**
@@ -26,8 +29,8 @@ class ListaController extends Controller
     public function create()
     {
         $users = User::all();
-        $tipo_listas = Tipo_lista::all();
-        $status_listas = Status_lista::all();
+        $tipo_itens = Tipo_item::all();
+        $status_itens = Status_item::all();
         return view('pages.listas.create', compact('users','status_listas','tipo_listas'));
     }
 
