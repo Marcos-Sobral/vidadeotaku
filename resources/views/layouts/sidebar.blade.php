@@ -100,21 +100,12 @@
                 </svg>
             </button>
             <div x-show="open" class="mt-2 space-y-2 pl-4">
-                <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">            
+                @auth
+                    
+                
+                <a href="{{ route('admin.lista.index') }}" class="flex py-2 px-6 hover:bg-gray-700 rounded">            
                     <img src="{{ URL::asset('assets/img/icon/icons8-user-folder-50.png') }}" class="mr-2 w-6 h-6">
-                    Conteúdo
-                </a>
-                <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">            
-                    <img src="{{ URL::asset('assets/img/icon/icons8-user-folder-50.png') }}" class="mr-2 w-6 h-6">
-                    Sub Conteúdo
-                </a>
-                <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">
-                    <img src="{{ URL::asset('assets/img/icon/icons8-user-shield-50.png') }}" class="mr-2 w-6 h-6">
-                    Gênero
-                </a>
-                <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">
-                    <img src="{{ URL::asset('assets/img/icon/icons8-user-shield-50.png') }}" class="mr-2 w-6 h-6">
-                    Autor
+                    Lista
                 </a>
                 <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">
                     <img src="{{ URL::asset('assets/img/icon/icons8-user-shield-50.png') }}" class="mr-2 w-6 h-6">
@@ -126,9 +117,10 @@
                 </a>
                 <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">
                     <img src="{{ URL::asset('assets/img/icon/icons8-analyzing-skill-50.png') }}" class="mr-2 w-6 h-6">
-                    Relatório de conteúdo
+                    Relatório das listas
                 </a>
             </div>
+            @endauth
         </div>
 
         <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 mt-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

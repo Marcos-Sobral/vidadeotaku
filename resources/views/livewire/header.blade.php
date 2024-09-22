@@ -42,6 +42,14 @@
               @auth
               @if (Auth::user()->is_admin) <!-- Verifica se o usuário é administrador -->
               <a href="{{ url('/dashboard') }}" class="dropdown-item fw-bold">Administração</a>
+                            <!-- Logout -->
+                            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <a :href="route('logout')" onclick="event.preventDefault();
+                                              this.closest('form').submit();" class="dropdown-item fw-bold">
+                  {{ __('Sair da conta') }}
+                </a>
+              </form>
               @else
               <!-- Exibe o nome do usuário e a opção de sair -->
               <a class="dropdown-item fw-bold">{{ Auth::user()->name }}</a>
