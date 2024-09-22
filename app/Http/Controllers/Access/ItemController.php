@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\Controller;
+use App\Models\Autor_item;
+use App\Models\Genero_item;
 use App\Models\Item;
 use App\Models\Status_item;
+use App\Models\Sub_itens;
 use App\Models\Tipo_item;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +31,10 @@ class ItemController extends Controller
         $users = User::all();
         $tipo_itens = Tipo_item::all();
         $status_itens = Status_item::all();
-        return view('pages.item.create', compact('users','status_itens','tipo_itens'));
+        $autor_itens = Autor_item::all();
+        $sub_itens = Sub_itens::all();
+        $genero_itens = Genero_item::all();
+        return view('pages.itens.create', compact('users','status_itens','tipo_itens','autor_itens',"sub_itens","genero_itens"));
     }
 
     /**
@@ -50,15 +56,15 @@ class ItemController extends Controller
 
         $validated['is_public'] = $request->has('is_public') ? 1 : 0;
     
-        if ($request->hasFile('img_lista')) {
-            $imageName = time() . '.' . $request->file('img_lista')->extension();
-            $request->file('img_lista')->move(public_path('images/lista_photo'), $imageName);
-            $validated['img_lista'] = 'lista_photo/' . $imageName;
+        if ($request->hasFile('img_item')) {
+            $imageName = time() . '.' . $request->file('img_item')->extension();
+            $request->file('img_item')->move(public_path('images/item_photo'), $imageName);
+            $validated['img_item'] = 'item_photo/' . $imageName;
         }
     
         Item::create($validated);
                 
-        return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
+        return redirect()->route('admin.item.index')->with('success', 'A lista foi criada com sucesso.');
     }
 
     /**
@@ -66,7 +72,7 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-        return view('pages.item.index');
+        return view('pages.itens.index');
     }
 
     /**
@@ -75,11 +81,14 @@ class ItemController extends Controller
     public function edit(string $id)
     {
         $users = User::all();
-        $Tipo_itens = Tipo_item::all();
+        $tipo_itens = Tipo_item::all();
         $status_itens = Status_item::all();
+        $autor_itens = Autor_item::all();
+        $sub_itens = Sub_itens::all();
+        $genero_itens = Genero_item::all();
         $itens = Item::findOrFail($id);
 
-        return view('pages.listas.edit', compact('users','itens','status_itens','Tipo_itens'));
+        return view('pages.itens.edit', compact('users','itens','status_itens','tipo_itens','autor_itens',"sub_itens","genero_itens"));
     }
 
     /**
@@ -103,13 +112,13 @@ class ItemController extends Controller
         $validated['is_public'] = $request->has('is_public') ? 1 : 0;
 
         // Processamento da imagem
-        if ($request->hasFile('img_lista')) {
+        if ($request->hasFile('img_item')) {
             // Excluir a imagem antiga se existir
             if ($itens->img_item && file_exists(public_path('images/' . $itens->img_item))) {
                 unlink(public_path('images/' . $itens->img_item));
             }
     
-            // Armazenar a nova imagem na pasta 'public/images/lista_photo'
+            // Armazenar a nova imagem na pasta 'public/images/item_photo'
             $imageName = time() . '.' . $request->file('img_item')->extension();
             $request->file('img_item')->move(public_path('images/item_photo'), $imageName);
             $validated['img_item'] = 'item_photo/' . $imageName;

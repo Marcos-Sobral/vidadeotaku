@@ -58,7 +58,7 @@
                 </svg>
             </button>
             <div x-show="open" class="mt-2 space-y-2 pl-4">
-                <a href="#" class="flex py-2 px-6 hover:bg-gray-700 rounded">            
+                <a href="{{ route('admin.item.index') }}" class="flex py-2 px-6 hover:bg-gray-700 rounded">            
                     <img src="{{ URL::asset('assets/img/icon/icons8-user-folder-50.png') }}" class="mr-2 w-6 h-6">
                     Conteúdo
                 </a>
