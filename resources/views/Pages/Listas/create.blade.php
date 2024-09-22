@@ -10,22 +10,18 @@
                     <form action="{{ route('admin.lista.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-4">
-                            <!-- Título do Carrossel -->
+                            <!-- Título do Listas-->
                             <div class="col-md-4 mb-3">
-                                <label for="nome_lista" class="form-label">Título da lista</label>
-                                <input type="text" id="nome_lista" name="nome_lista" class="form-control @error('nome_lista') is-invalid @enderror" value="{{ old('nome_lista') }}" required>
-                                @error('nome_lista')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <x-input-label for="nome_lista" :value="__('Título da lista')" />
+                                <x-text-input id="nome_lista" class="block mt-1 w-full" type="text" name="nome_lista" value="{{ old('nome_lista') }}" />
+                                <x-input-error :messages="$errors->get('nome_lista')" class="mt-2" />
                             </div>
 
-                            <!-- Descrição do Carrossel -->
+                            <!-- Descrição do Lista -->
                             <div class="col-md-4 mb-3">
-                                <label for="descricao_lista" class="form-label">Descrição da lista</label>
-                                <textarea id="descricao_lista" name="descricao_lista" class="form-control @error('descricao_lista') is-invalid @enderror">{{ old('descricao_lista') }}</textarea>
-                                @error('descricao_lista')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <x-input-label for="descricao_lista" :value="__('Descrição da lista')" />
+                                <x-text-input id="descricao_lista" class="block mt-1 w-full" type="text" name="descricao_lista" value="{{ old('descricao_lista') }}" />
+                                <x-input-error :messages="$errors->get('descricao_lista')" class="mt-2" />
                             </div>
 
                              <!-- Capa da lista -->
@@ -41,41 +37,45 @@
                         <div class="row mb-4">
                             <!-- Seleção de user -->
                             <div class="col-md-4 mb-3">
-                                <x-input-label for="name_user" :value="__('Usuários')" />
-                                <select id="name_user" name="name_user" class="block mt-1 w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring focus:ring-indigo-200 dark:focus:ring-indigo-900 rounded-md shadow-sm">
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->name}}" {{ old('name_user') == $user->name_user ? 'selected' : '' }}>
-                                            {{ $user->name }}
-                                        </option>
-                                    @endforeach
+                                <label for="lista_id_user" class="form-label">Projeto Associado</label>
+                                <select id="lista_id_user" name="lista_id_user" class="form-select @error('lista_id_user') is-invalid @enderror" required>
+                                <option value="">Selecione um projeto</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}" {{ old('lista_id_user') == $user->id ? 'selected' : '' }}>
+                                        {{ $user->name }}
+                                    </option>
+                                @endforeach
                                 </select>
-                                <x-input-error :messages="$errors->get('id_user')" class="mt-2" />
+                                @error('lista_id_user')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Seleção de status -->
                             <div class="col-md-4 mb-3">
-                                <x-input-label for="tipo_status_lista_status" :value="__('Status')" />
-                                <select id="tipo_status_lista_status" name="tipo_status_lista_status" class="block mt-1 w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring focus:ring-indigo-200 dark:focus:ring-indigo-900 rounded-md shadow-sm">
+                                <label for="lista_id_user" class="form-label">Status</label>
+                                <select id="lista_id_status" name="lista_id_status" class="form-select @error('lista_id_status') is-invalid @enderror">
                                     @foreach ($status_listas as $status)
-                                        <option value="{{ $status->tipo_status_lista}}" {{ old('tipo_status_listas') == $user->tipo_status_lista ? 'selected' : '' }}>
+                                        <option value="{{ $status->id_status_lista }}" {{ old('lista_id_status') == $status->id_status_lista ? 'selected' : '' }}>
                                             {{ $status->tipo_status_lista }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <x-input-error :messages="$errors->get('id_user')" class="mt-2" />
+
+                                <x-input-error :messages="$errors->get('tipo_status_lista')" class="mt-2" />
                             </div>
 
                             <!-- Seleção de tipo -->
                             <div class="col-md-4 mb-3">
-                                <x-input-label for="nome_tipo_lista_user" :value="__('Tipo')" />
-                                <select id="nome_tipo_lista_tipo" name="nome_tipo_lista_tipo" class="block mt-1 w-full bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring focus:ring-indigo-200 dark:focus:ring-indigo-900 rounded-md shadow-sm">
+                                <label for="lista_id_user" class="form-label">Tipo</label>
+                                <select id="lista_id_tipo" name="lista_id_tipo" class="form-select @error('lista_id_tipo') is-invalid @enderror">
                                     @foreach ($tipo_listas as $tipo)
-                                        <option value="{{ $tipo->nome_tipo_lista}}" {{ old('nome_tipo_lista_tipo') == $tipo->nome_tipo_lista_tipo ? 'selected' : '' }}>
+                                        <option value="{{ $tipo->id_tipo_lista }}" {{ old('lista_id_tipo') == $tipo->id_tipo_lista ? 'selected' : '' }}>
                                             {{ $tipo->nome_tipo_lista }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <x-input-error :messages="$errors->get('id_tipo')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('lista_id_tipo')" class="mt-2" />
                             </div>
                         </div>
 

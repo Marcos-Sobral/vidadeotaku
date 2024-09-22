@@ -41,33 +41,22 @@ class ListaController extends Controller
             'descricao_lista' => 'nullable|string|max:255',
             'is_public' => 'nullable|boolean',
             'img_lista' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status_listas.*' => 'exists:status, id_status_lista',
-            'tipo_listas.*' => 'exists:status, id_tipo_lista',
+            'lista_id_status' => 'nullable|exists:status_listas,id_status_lista', 
+            'lista_id_tipo' => 'nullable|exists:tipo_listas,id_tipo_lista',
+            'lista_id_user' => 'required|exists:users,id', // Adiciona a validação do usuário
         ]);
-
-        // Processamento da imagem
+    
         if ($request->hasFile('img_lista')) {
-            // Gerar um nome único para a imagem
             $imageName = time() . '.' . $request->file('img_lista')->extension();
-            // Salvar a imagem na pasta 'public/images/carrossel_photo' sem precisar do storage link
             $request->file('img_lista')->move(public_path('images/lista_photo'), $imageName);
             $validated['img_lista'] = 'lista_photo/' . $imageName;
         }
-
-        $listas = Lista::create($validated);
-
-        // Associar as status_listas ao listas
-        if ($request->has('status_listas')) {
-            $listas->status_listas()->sync($request->status_listas);
-        }
-        // Associar as status_listas ao listas
-        if ($request->has('tipo_listas')) {
-            $listas->tipo_listas()->sync($request->tipo_listas);
-        }
     
+        Lista::create($validated);
                 
         return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
     }
+    
 
     /**
      * Display the specified resource.
@@ -85,8 +74,8 @@ class ListaController extends Controller
         $users = User::all();
         $tipo_listas = Tipo_lista::all();
         $status_listas = Status_lista::all();
-        $listas = Lista::findOrFail($id); // Busca apenas a lista específica
-        return view('pages.listas.create', compact('users','status_listas','tipo_listas','listas'));
+        $lista = Lista::findOrFail($id); // Busca apenas a lista específica
+        return view('pages.listas.edit', compact('users','status_listas','tipo_listas','lista'));
     }
 
     /**
@@ -99,8 +88,9 @@ class ListaController extends Controller
             'descricao_lista' => 'nullable|string|max:255',
             'is_public' => 'nullable|boolean',
             'img_lista' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status_listas.*' => 'exists:status_lista,id_status_lista',
-            'tipo_listas.*' => 'exists:tipo_lista,id_tipo_lista',
+            'lista_id_status' => 'nullable|exists:status_listas,id_status_lista', 
+            'lista_id_tipo' => 'nullable|exists:tipo_listas,id_tipo_lista',
+            'lista_id_user' => 'nullable|exists:users,id', // Adiciona a validação do usuário
         ]);
     
         $lista = Lista::findOrFail($id);
@@ -111,17 +101,9 @@ class ListaController extends Controller
             $request->file('img_lista')->move(public_path('images/lista_photo'), $imageName);
             $validated['img_lista'] = 'lista_photo/' . $imageName;
         }
-    
+
+        // Atualizar lista
         $lista->update($validated);
-    
-        // Atualizar associações
-        if ($request->has('status_listas')) {
-            $lista->status_listas()->sync($request->status_listas);
-        }
-    
-        if ($request->has('tipo_listas')) {
-            $lista->tipo_listas()->sync($request->tipo_listas);
-        }
     
         return redirect()->route('admin.lista.index')->with('success', 'A lista foi atualizada com sucesso.');
     }
@@ -132,6 +114,13 @@ class ListaController extends Controller
     public function destroy(string $id)
     {
         $lista = Lista::findOrFail($id);
+
+        if ($lista->img_lista && file_exists(public_path('images/' . $lista->img_lista))) {
+            // Excluir a imagem do sistema de arquivos
+            unlink(public_path('images/' . $lista->img_lista));
+        }
+
+
         $lista->delete();
 
         return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
