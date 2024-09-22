@@ -21,11 +21,11 @@ Route::get('/welcome', function () {
 });
 
 //ADMIN
-Route::middleware("auth",'profile')->prefix('/admin')->group(function(){
+Route::middleware("auth","check.profile")->prefix('/admin')->group(function(){
    
     //Lista
     Route::prefix('/lista')->group(function() {
-        Route::get('/', [ListaController::class, 'index'])->name('admlista.index');
+        Route::get('/', [ListaController::class, 'index'])->name('admin.lista.index');
         Route::get('/criar', [ListaController::class, 'create'])->name('admin.lista.create');
         Route::post('/criar', [ListaController::class, 'store'])->name('admin.lista.store');
         Route::get('/editar/{id}', [ListaController::class, 'edit'])->name('admin.lista.edit');
