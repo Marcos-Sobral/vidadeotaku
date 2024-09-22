@@ -30,7 +30,7 @@ class Lista extends Model
     }
 
     public function Tipo_lista(){
-        return $this->belongsTo(Status_lista::class, "lista_id_tipo", "id_tipo_lista");
+        return $this->belongsTo(Tipo_lista::class, "lista_id_tipo", "id_tipo_lista");
          //A lista tem um tipo
     }
 }

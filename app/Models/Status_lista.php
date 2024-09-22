@@ -18,7 +18,7 @@ class Status_lista extends Model
     ];
 
     public function Lista(){
-        return $this->hasMany(Lista::class, "lista_id_status", "id_lista");
+        return $this->hasMany(Lista::class, "lista_id_status", "id_status_lista");
         //status pode ter várias listas
     }
 }

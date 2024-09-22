@@ -17,7 +17,7 @@ class Tipo_lista extends Model
     ];
 
     public function Lista(){
-        return $this->hasMany(Lista::class, "lista_id_tipo", "id_lista");
+        return $this->hasMany(Lista::class, "lista_id_tipo", "id_tipo_lista");
         //tipo pode ter várias listas
     }
 }
