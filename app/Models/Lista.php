@@ -16,7 +16,10 @@ class Lista extends Model
         "nome_lista",
         "descricao_lista",
         "img_lista",
-        "is_public"
+        "is_public",
+        "lista_id_user",
+        "lista_id_tipo",
+        "lista_id_status"
     ];
 
     public function User(){
