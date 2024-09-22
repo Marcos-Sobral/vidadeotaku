@@ -13,7 +13,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link text-white" href="{{ URL::route('vdo.sobre') }}">Inicio</a>
+                <a class="nav-link text-white" href="{{ URL::route('dashboard') }}">Inicio</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white" href="{{ URL::route('vdo.sobre') }}">Acervo</a>
