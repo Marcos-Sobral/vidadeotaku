@@ -24,6 +24,14 @@
                                 <x-text-input id="descricao_lista" class="block mt-1 w-full" type="text" name="descricao_lista" value="{{ old('descricao_lista', $lista->descricao_lista) }}" />
                                 <x-input-error :messages="$errors->get('descricao_lista')" class="mt-2" />
                             </div>
+                           
+                            <div class="col-md-4 form-check mb-3 d-flex align-items-center">
+
+                                <input class="form-check-input" type="checkbox" id="is_public" name="is_public" value="1" {{ old('is_public', $lista->is_public) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="is_public">
+                                    Lista Pública ?
+                                </label>
+                            </div>
                         </div>
 
                         <div class="row mb-4">

@@ -24,6 +24,14 @@
                                 <x-input-error :messages="$errors->get('descricao_lista')" class="mt-2" />
                             </div>
 
+                            <!-- Checkbox para definir se a lista é pública -->
+                            <div class="col-md-4 form-check mb-3 d-flex align-items-center">
+                                <input class="form-check-input" type="checkbox" id="is_public" name="is_public" value="1" {{ old('is_public') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="is_public">
+                                Lista Pública ?
+                                </label>
+                            </div>
+
                              <!-- Capa da lista -->
                             <div class="col-md-4 mb-3">
                                 <label for="img_lista" class="form-label">Capa da lista</label>
@@ -81,7 +89,7 @@
 
                         <!-- Botões -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Criar Carrossel</button>
+                            <button type="submit" class="btn btn-primary">Criar</button>
                             <a href="{{ route('admin.lista.index') }}" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>

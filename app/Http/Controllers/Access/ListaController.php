@@ -45,6 +45,8 @@ class ListaController extends Controller
             'lista_id_tipo' => 'nullable|exists:tipo_listas,id_tipo_lista',
             'lista_id_user' => 'required|exists:users,id', // Adiciona a validação do usuário
         ]);
+
+        $validated['is_public'] = $request->has('is_public') ? 1 : 0;
     
         if ($request->hasFile('img_lista')) {
             $imageName = time() . '.' . $request->file('img_lista')->extension();
@@ -94,6 +96,8 @@ class ListaController extends Controller
             'lista_id_user' => 'nullable|exists:users,id', // Adiciona a validação do usuário
         ]);
     
+        $validated['is_public'] = $request->has('is_public') ? 1 : 0;
+
         // Processamento da imagem
         if ($request->hasFile('img_lista')) {
             // Excluir a imagem antiga se existir
