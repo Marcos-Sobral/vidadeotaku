@@ -83,6 +83,7 @@ class ListaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $lista = Lista::findOrFail($id);
         $validated = $request->validate([
             'nome_lista' => 'required|string|max:255',
             'descricao_lista' => 'nullable|string|max:255',
@@ -93,10 +94,14 @@ class ListaController extends Controller
             'lista_id_user' => 'nullable|exists:users,id', // Adiciona a validação do usuário
         ]);
     
-        $lista = Lista::findOrFail($id);
-    
         // Processamento da imagem
         if ($request->hasFile('img_lista')) {
+            // Excluir a imagem antiga se existir
+            if ($lista->img_lista && file_exists(public_path('images/' . $lista->img_lista))) {
+                unlink(public_path('images/' . $lista->img_lista));
+            }
+    
+            // Armazenar a nova imagem na pasta 'public/images/lista_photo'
             $imageName = time() . '.' . $request->file('img_lista')->extension();
             $request->file('img_lista')->move(public_path('images/lista_photo'), $imageName);
             $validated['img_lista'] = 'lista_photo/' . $imageName;
