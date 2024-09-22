@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Access;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Status_item;
+use App\Models\Tipo_item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -12,7 +16,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $itens = Item::all();
+        return view('pages.itens.index', compact('itens'));
     }
 
     /**
@@ -20,7 +25,10 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        $tipo_itens = Tipo_item::all();
+        $status_itens = Status_item::all();
+        return view('pages.item.create', compact('users','status_itens','tipo_itens'));
     }
 
     /**
@@ -28,7 +36,29 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome_item' => 'required|string|max:255',
+            'descricao_item' => 'nullable|string|max:255',
+            'cronologia_item' => 'nullable|string|max:255',
+            'img_item' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_public' => 'nullable|boolean',
+            'item_id_status' => 'nullable|exists:status_itens,id_status_item', 
+            'item_id_autor' => 'nullable|exists:status_itens,id_status_item', 
+            'item_id_tipo' => 'nullable|exists:tipo_itens,id_tipo_item',
+            'item_id_user' => 'required|exists:users,id',
+        ]);
+
+        $validated['is_public'] = $request->has('is_public') ? 1 : 0;
+    
+        if ($request->hasFile('img_lista')) {
+            $imageName = time() . '.' . $request->file('img_lista')->extension();
+            $request->file('img_lista')->move(public_path('images/lista_photo'), $imageName);
+            $validated['img_lista'] = 'lista_photo/' . $imageName;
+        }
+    
+        Item::create($validated);
+                
+        return redirect()->route('admin.lista.index')->with('success', 'A lista foi criada com sucesso.');
     }
 
     /**
@@ -36,7 +66,7 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('pages.item.index');
     }
 
     /**
@@ -44,7 +74,12 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = User::all();
+        $Tipo_itens = Tipo_item::all();
+        $status_itens = Status_item::all();
+        $itens = Item::findOrFail($id);
+
+        return view('pages.listas.edit', compact('users','itens','status_itens','Tipo_itens'));
     }
 
     /**
@@ -52,7 +87,38 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $itens = Item::findOrFail($id);
+        $validated = $request->validate([
+            'nome_item' => 'required|string|max:255',
+            'descricao_item' => 'nullable|string|max:255',
+            'cronologia_item' => 'nullable|string|max:255',
+            'img_item' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_public' => 'nullable|boolean',
+            'item_id_status' => 'nullable|exists:status_itens,id_status_item', 
+            'item_id_autor' => 'nullable|exists:status_itens,id_status_item', 
+            'item_id_tipo' => 'nullable|exists:tipo_itens,id_tipo_item',
+            'item_id_user' => 'required|exists:users,id',
+        ]);
+
+        $validated['is_public'] = $request->has('is_public') ? 1 : 0;
+
+        // Processamento da imagem
+        if ($request->hasFile('img_lista')) {
+            // Excluir a imagem antiga se existir
+            if ($itens->img_item && file_exists(public_path('images/' . $itens->img_item))) {
+                unlink(public_path('images/' . $itens->img_item));
+            }
+    
+            // Armazenar a nova imagem na pasta 'public/images/lista_photo'
+            $imageName = time() . '.' . $request->file('img_item')->extension();
+            $request->file('img_item')->move(public_path('images/item_photo'), $imageName);
+            $validated['img_item'] = 'item_photo/' . $imageName;
+        }
+
+        // Atualizar lista
+        $itens->update($validated);
+    
+        return redirect()->route('admin.item.index')->with('success', 'A lista foi atualizada com sucesso.');
     }
 
     /**
@@ -60,6 +126,16 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $itens = Item::findOrFail($id);
+
+        if ($itens->img_item && file_exists(public_path('images/' . $itens->img_item))) {
+            // Excluir a imagem do sistema de arquivos
+            unlink(public_path('images/' . $itens->img_item));
+        }
+
+
+        $itens->delete();
+
+        return redirect()->route('admin.item.index')->with('success', 'A lista foi criada com sucesso.');
     }
 }
