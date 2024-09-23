@@ -45,12 +45,12 @@ class Item extends Model
     }
 
     public function Genero_item(){
-        return $this->belongsToMany(Genero_item::class, 'item_genero_id_item','id_item');
-        //O item tem apenas um status
+        return $this->belongsToMany(Genero_item::class, "item_genero",'id_item','id_genero_item');
+         // O item tem vários gêneros através da tabela pivot 'item_genero'
     }
 
     public function Sub_itens(){
-        return $this->hasMany(Sub_itens::class, 'sub_item_id_item','id_item');
+        return $this->hasMany(Sub_itens::class, 'id_sub_item','id_item');
         //O item tem varios sub itens
     }
 }

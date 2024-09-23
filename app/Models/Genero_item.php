@@ -14,11 +14,10 @@ class Genero_item extends Model
 
     protected $fillable = [
         "nome_genero_item",
-
     ];
 
     public function Item(){
-        return $this->belongsToMany(Item::class, 'item_genero_id_item','id_item');
+        return $this->belongsToMany(Item::class, "item_genero",'id_genero_item','id_item');
         //O item tem varios generos
     }
 }

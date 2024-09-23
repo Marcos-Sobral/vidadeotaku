@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("descricao_item")->nullable();
             $table->string("cronologia_item")->nullable();
             $table->string("img_item")->nullable();
-            $table->boolean("is_public")->default(false)->nullable();
+            $table->boolean("is_public")->default(false);
             $table->foreignId('item_id_user')->nullable()->constrained('users','id')->onDelete('cascade');
             $table->foreignId('item_id_status')->nullable()->constrained('status_itens','id_status_item')->onDelete('cascade');
             $table->foreignId('item_id_tipo')->nullable()->constrained('tipo_itens','id_tipo_item')->onDelete('cascade');

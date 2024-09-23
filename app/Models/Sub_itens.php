@@ -19,7 +19,8 @@ class Sub_itens extends Model
     ];
 
     public function Item(){
-        return $this->belongsTo(Item::class, 'sub_item_id_item','id_item');
+        return $this->belongsTo(Item::class, '
+        id_sub_item','id_item');
         //O sub item tem um item
     }
 }
